@@ -1,18 +1,18 @@
-package com.project.OpenXinternshiptask.model;
+package com.project.OpenXinternshiptask.model.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Entity
+
 @Data
-@ToString
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode
 public class User {
 
-    @Id
-    private Long id;
+    private Integer id;
     @Embedded
     @JsonProperty("address")
     private Address address;
@@ -25,10 +25,4 @@ public class User {
     private Integer __v;
 }
 
-@Embeddable
-class Name{
-    @JsonProperty("firstname")
-    private String firstName;
-    @JsonProperty("lastname")
-    private String lastName;
-}
+

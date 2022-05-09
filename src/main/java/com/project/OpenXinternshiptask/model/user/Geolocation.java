@@ -1,12 +1,17 @@
-package com.project.OpenXinternshiptask.model;
+package com.project.OpenXinternshiptask.model.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
 
-@Embeddable
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode
 public class Geolocation {
 
     @JsonProperty("lat")

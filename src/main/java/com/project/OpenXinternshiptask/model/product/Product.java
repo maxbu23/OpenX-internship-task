@@ -1,16 +1,20 @@
-package com.project.OpenXinternshiptask.model;
+package com.project.OpenXinternshiptask.model.product;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity
 @Data
+@AllArgsConstructor
+@EqualsAndHashCode
+@NoArgsConstructor
 public class Product {
 
-    @Id
-    private Long id;
+    private Integer id;
     private String title;
     private Double price;
     private String description;
@@ -19,12 +23,6 @@ public class Product {
     @Embedded
     private Rating rating;
 }
-@Embeddable
-class Rating{
-    @JsonProperty("rate")
-    private Double rate;
-    @JsonProperty("count")
-    private Integer count;
-}
+
 
 

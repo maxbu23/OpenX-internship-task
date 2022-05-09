@@ -1,14 +1,17 @@
-package com.project.OpenXinternshiptask.model;
+package com.project.OpenXinternshiptask.model.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
-import javax.persistence.Entity;
-import javax.persistence.Id;
 
-@Embeddable
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode
 public class Address {
 
     @JsonProperty("geolocation")
@@ -18,7 +21,7 @@ public class Address {
     @JsonProperty("street")
     private String street;
     @JsonProperty("number")
-    private Long number;
+    private Integer number;
     @JsonProperty("zipcode")
     private String zipCode;
 }

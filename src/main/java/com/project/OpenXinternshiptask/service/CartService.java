@@ -1,46 +1,53 @@
 package com.project.OpenXinternshiptask.service;
 
-import com.project.OpenXinternshiptask.model.Cart;
-import com.project.OpenXinternshiptask.model.HighestValueCartResponse;
+import com.project.OpenXinternshiptask.model.cart.Cart;
+import com.project.OpenXinternshiptask.model.cart.HighestValueCartResponse;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
-import java.util.Objects;
+import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class CartService {
 
     final static String URL_CARTS = "https://fakestoreapi.com/carts";
     private final RestTemplate restTemplate;
     private final ProductService productService;
     private final UserService userService;
+    private final List<Cart> carts;
 
     @Autowired
     public CartService(RestTemplate restTemplate, ProductService productService, UserService userService) {
         this.restTemplate = restTemplate;
         this.productService = productService;
         this.userService = userService;
+        this.carts = Arrays.stream(getAllCarts()).toList();
     }
 
-    public Cart getCartById(Long id) {
-        return Arrays
-                .stream(Objects.requireNonNull(getCartsArray()))
-                .filter(cart -> cart.getId().equals(id))
-                .findFirst()
-                .orElseThrow();
+    private Cart[] getAllCarts() {
+        return restTemplate.getForEntity(
+                URL_CARTS,
+                Cart[].class
+        ).getBody();
     }
 
-    public HighestValueCartResponse findCardWithTheHighestValue() {
+    public Cart getCartById(Integer id) {
+        //index of List is associated with index+1 of our cart object, so requested id we need to decrement to get appropriate object from list
+        return this.carts.get(id-1);
+    }
 
-        final Cart[] cartsArray = getCartsArray();
+    public HighestValueCartResponse findCartWithTheHighestValue() {
+
         double totalValue = 0;
-        Long userIdWithMaxValueableCart = 1L;
+        Integer userIdWithMaxValueableCart = 1;
         double maxValue = 0;
-        Cart cartWithMaxValue = getCartById(1L);
+        Cart cartWithMaxValue = getCartById(1);
 
-        for (Cart cart : cartsArray) {
+        for (Cart cart : carts) {
             totalValue += cart.getProducts()
                     .stream()
                     .map(productInCart
@@ -57,17 +64,9 @@ public class CartService {
         }
 
         return new HighestValueCartResponse(
-                cartWithMaxValue,
                 maxValue,
+                cartWithMaxValue,
                 userService.getUserById(userIdWithMaxValueableCart)
         );
     }
-
-    private Cart[] getCartsArray() {
-        return restTemplate.getForEntity(
-                URL_CARTS,
-                Cart[].class
-        ).getBody();
-    }
-
 }
