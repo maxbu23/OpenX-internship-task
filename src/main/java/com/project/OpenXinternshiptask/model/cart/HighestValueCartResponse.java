@@ -1,6 +1,7 @@
 package com.project.OpenXinternshiptask.model.cart;
 
 import com.project.OpenXinternshiptask.model.cart.Cart;
+import com.project.OpenXinternshiptask.model.user.Name;
 import com.project.OpenXinternshiptask.model.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,5 +14,5 @@ public class HighestValueCartResponse {
 
     private Double totalValue;
     private Cart cart;
-    private User user;
+    private Name name;
 }

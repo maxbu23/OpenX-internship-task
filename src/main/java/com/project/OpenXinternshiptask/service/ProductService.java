@@ -47,8 +47,6 @@ public class ProductService {
                 categoriesAndValue.put(category,value);
         }
 
-
-
         return categoriesAndValue;
     }
 

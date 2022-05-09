@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
-import java.util.function.BiFunction;
 
 @Service
 @AllArgsConstructor
@@ -42,7 +41,7 @@ public class UserService {
         User firstUserToReturn = new User();
         User secondUserToReturn = new User();
         double maxDistance = 0;
-        double actualDistance = 0;
+        double actualDistance;
 
         for(User firstUser:users){
             for (User secondUser:users){

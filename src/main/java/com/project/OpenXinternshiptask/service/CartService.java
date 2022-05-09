@@ -66,7 +66,7 @@ public class CartService {
         return new HighestValueCartResponse(
                 maxValue,
                 cartWithMaxValue,
-                userService.getUserById(userIdWithMaxValueableCart)
+                userService.getUserById(userIdWithMaxValueableCart).getName()
         );
     }
 }
