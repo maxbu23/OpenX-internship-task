@@ -1,6 +1,7 @@
 package com.project.OpenXinternshiptask.constroller;
 
 import com.project.OpenXinternshiptask.model.Cart;
+import com.project.OpenXinternshiptask.model.HighestValueCartResponse;
 import com.project.OpenXinternshiptask.model.Product;
 import com.project.OpenXinternshiptask.service.CartService;
 import com.project.OpenXinternshiptask.service.ProductService;
@@ -17,27 +18,20 @@ import java.util.Objects;
 
 @RestController
 public class CartController {
-    final static String URL_CARTS = "https://fakestoreapi.com/carts";
     private final CartService cartService;
-    private final RestTemplate restTemplate;
 
     @Autowired
-    public CartController(CartService cartService, RestTemplate restTemplate) {
+    public CartController(CartService cartService) {
         this.cartService = cartService;
-        this.restTemplate = restTemplate;
     }
 
-
     @GetMapping(path = "/carts")
-    public Cart getUser(@RequestParam Long id) {
+    public Cart getUser(@RequestParam("id") Long id) {
+        return this.cartService.getCartById(id);
+    }
 
-        final HashMap<String, Long> urlVariables = new HashMap<>();
-//        urlVariables.put("id",id);
-        final ResponseEntity<Cart[]> forEntity1 = restTemplate.getForEntity(
-                URL_CARTS,
-                Cart[].class
-        );
-
-        return Arrays.stream(Objects.requireNonNull(forEntity1.getBody())).filter(cart -> cart.getId().equals(id)).findFirst().orElseThrow();
+    @GetMapping(path = "/cart-with-the-highest-value")
+    public HighestValueCartResponse getCardWithTheHighestValue(){
+        return this.cartService.findCardWithTheHighestValue();
     }
 }

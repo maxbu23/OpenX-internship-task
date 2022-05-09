@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Embeddable
+@Data
 public class Address {
 
     @JsonProperty("geolocation")
@@ -22,11 +23,3 @@ public class Address {
     private String zipCode;
 }
 
-@Embeddable
-class Geolocation{
-
-    @JsonProperty("lat")
-    private String latitude;
-    @JsonProperty("long")
-    private String longitude;
-}

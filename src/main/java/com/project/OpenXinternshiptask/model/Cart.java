@@ -1,7 +1,9 @@
 package com.project.OpenXinternshiptask.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
@@ -9,6 +11,8 @@ import java.util.List;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Cart {
 
     @Id
@@ -20,14 +24,4 @@ public class Cart {
     private Integer __v;
 
 }
-
-@Embeddable
-class ProductInCart{
-
-    @JsonProperty("productId")
-    private Long productId;
-    @JsonProperty("quantity")
-    private Integer quantity;
-}
-
 
